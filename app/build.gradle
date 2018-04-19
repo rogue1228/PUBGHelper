@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "27.0.3"
+    compileSdkVersion Configs.compile_sdk
     defaultConfig {
-        applicationId "com.mc_jh.pubghelper"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        applicationId "kr.co.sleeptime.pubghelper"
+        minSdkVersion Configs.min_sdk
+        targetSdkVersion Configs.target_sdk
+        versionCode Configs.version_code
+        versionName Configs.version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,15 +19,30 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "API_KEY", "\""+getApiKey()+"\""
+        }
     }
+}
+def getApiKey(){
+    Properties props = new Properties()
+    props.load(new FileInputStream(rootProject.file('secrets.properties')))
+    return props['API_KEY']
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation Deps.kotlin_stdlib
+    implementation Deps.support_app_compat
+    implementation Deps.support_v4
+    implementation Deps.constraint_layout
+    implementation Deps.support_design
+
+    implementation Deps.retrofit_runtime
+    implementation Deps.retrofit_gson
+    implementation Deps.retrofit_rxjava2
+
+    testImplementation Deps.junit
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
