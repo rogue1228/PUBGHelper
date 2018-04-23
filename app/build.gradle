@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion Configs.compile_sdk
     defaultConfig {
-        applicationId "kr.co.sleeptime.pubghelper"
+        applicationId "com.mc_jh.pubghelper"
         minSdkVersion Configs.min_sdk
         targetSdkVersion Configs.target_sdk
         versionCode Configs.version_code
