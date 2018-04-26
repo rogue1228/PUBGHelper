@@ -32,7 +32,7 @@ object Versions {
     const val multidex = "1.0.2"
     const val assertJ = "1.7.1"
     const val robolectric = "3.1.1"
-    const val pubg_api: String = "0.1.0"
+    const val pubg_api: String = "0.1.1"
 }
 
 object Deps {
