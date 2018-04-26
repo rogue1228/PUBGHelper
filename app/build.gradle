@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion Configs.compile_sdk
     defaultConfig {
-        applicationId "kr.co.sleeptime.pubghelper"
+        applicationId "com.mc_jh.pubghelper"
         minSdkVersion Configs.min_sdk
         targetSdkVersion Configs.target_sdk
         versionCode Configs.version_code
@@ -20,11 +20,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         applicationVariants.all { variant ->
-            variant.buildConfigField "String", "API_KEY", "\""+getApiKey()+"\""
+            variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
         }
     }
 }
-def getApiKey(){
+
+def getApiKey() {
     Properties props = new Properties()
     props.load(new FileInputStream(rootProject.file('secrets.properties')))
     return props['API_KEY']
@@ -42,6 +43,16 @@ dependencies {
     implementation Deps.retrofit_gson
     implementation Deps.retrofit_rxjava2
 
+    implementation Deps.anko
+    implementation Deps.anko_appcompat_v7
+    implementation Deps.anko_design
+    implementation Deps.anko_constraint
+    implementation Deps.anko_recyclerview
+
+    implementation Deps.pubg_api
+
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation Deps.junit
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

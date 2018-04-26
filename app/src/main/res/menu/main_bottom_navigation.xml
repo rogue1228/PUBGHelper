@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_view_headline_black_24dp"
+        android:id="@+id/feed"
+        android:title="피드" />
+    <item
+        android:icon="@drawable/ic_class_black_24dp"
+        android:id="@+id/history"
+        android:title="기록" />
+    <item
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:id="@+id/option"
+        android:title="옵션" />
+</menu>

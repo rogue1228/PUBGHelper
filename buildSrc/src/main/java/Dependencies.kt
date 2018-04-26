@@ -32,6 +32,7 @@ object Versions {
     const val multidex = "1.0.2"
     const val assertJ = "1.7.1"
     const val robolectric = "3.1.1"
+    const val pubg_api: String = "0.1.0"
 }
 
 object Deps {
@@ -123,6 +124,9 @@ object Deps {
     //for test
     const val hamcrest = "org.hamcrest:hamcrest-all:${Versions.hamcrest}"
     const val junit = "junit:junit:${Versions.junit}"
+
+    //api
+    const val pubg_api = "de.kevcodez.pubg:pubg-api-wrapper:${Versions.pubg_api}"
 }
 
 object Configs {
@@ -133,7 +137,5 @@ object Configs {
     const val version_code = 124
     const val version_name = "2.9.30"
 
-    const val dev_api_url = "\"http://dev.washon.co/\""
-    const val live_api_url = "\"http://api.washon.co/\""
 }
 
