@@ -8,26 +8,31 @@ import com.mc_jh.pubghelper.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    @LayoutRes
-    abstract fun getLayoutRes(): Int
+    @get:LayoutRes
+    abstract val layoutRes: Int
 
-    open fun isHomeAsUpEnabled():Boolean{
-        return true
-    }
+    open val useToolbar: Boolean = true
+
+    open val isHomeAsUpEnabled: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getLayoutRes() != 0) {
-            setContentView(getLayoutRes())
-            setupToolbar()
+        if (layoutRes != 0) {
+            setContentView(layoutRes)
+            if (useToolbar) {
+                setupToolbar()
+            }
+            setupViews()
         }
     }
+
+    abstract fun setupViews()
 
     private fun setupToolbar() {
         findViewById<Toolbar>(R.id.toolbar)?.let {
             setSupportActionBar(it)
             supportActionBar?.apply {
-                setDisplayHomeAsUpEnabled(isHomeAsUpEnabled())
+                setDisplayHomeAsUpEnabled(isHomeAsUpEnabled)
                 setDisplayShowTitleEnabled(true)
             }
         }

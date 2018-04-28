@@ -1,7 +1,7 @@
 object Versions {
     const val anko = "0.10.4"
     const val arch = "1.1.1"
-    const val support = "27.1.0"
+    const val support = "27.1.1"
     const val dagger = "2.11"
     const val junit = "4.12"
     const val espresso = "3.0.1"
@@ -12,7 +12,7 @@ object Versions {
     const val mockito = "2.9.0"
     const val mockito_all = "1.10.19"
     const val dexmaker = "2.2.0"
-    const val constraint_layout = "1.1.0-beta5"
+    const val constraint_layout = "1.1.0"
     const val glide = "4.5.0"
     const val timber = "4.5.1"
     const val android_gradle_plugin = "3.0.1"
@@ -33,6 +33,7 @@ object Versions {
     const val assertJ = "1.7.1"
     const val robolectric = "3.1.1"
     const val pubg_api: String = "0.1.1"
+    const val room: String = "1.1.0-beta2"
 }
 
 object Deps {
@@ -52,10 +53,10 @@ object Deps {
     const val constraint_layout = "com.android.support.constraint:constraint-layout:${Versions.constraint_layout}"
 
     //room
-    const val room_runtime = "android.arch.persistence.room:runtime:${Versions.arch}"
-    const val room_compiler = "android.arch.persistence.room:compiler:${Versions.arch}"
-    const val room_rxjava2 = "android.arch.persistence.room:rxjava2:${Versions.arch}"
-    const val room_testing = "android.arch.persistence.room:testing:${Versions.arch}"
+    const val room_runtime = "android.arch.persistence.room:runtime:${Versions.room}"
+    const val room_compiler = "android.arch.persistence.room:compiler:${Versions.room}"
+    const val room_rxjava2 = "android.arch.persistence.room:rxjava2:${Versions.room}"
+    const val room_testing = "android.arch.persistence.room:testing:${Versions.room}"
 
     //anko
     const val anko = "org.jetbrains.anko:anko:${Versions.anko}"

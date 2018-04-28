@@ -3,13 +3,12 @@ package com.mc_jh.pubghelper;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.core.internal.deps.guava.collect.Lists;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.mc_jh.pubghelper.data.database.PUBGDatabase;
 import com.mc_jh.pubghelper.data.database.dao.PlayerDAO;
-import com.mc_jh.pubghelper.data.database.entity.PlayerEntity;
-import com.mc_jh.pubghelper.data.mapper.PlayerMapper;
+import com.mc_jh.pubghelper.data.repository.PlayersRepository;
+import com.mc_jh.pubghelper.model.PlayerModel;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,12 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
 
 import de.kevcodez.pubg.client.ApiClient;
-import de.kevcodez.pubg.client.PlayerFilter;
 import de.kevcodez.pubg.model.Region;
-import de.kevcodez.pubg.model.player.PlayerResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -36,26 +32,26 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
-    final Logger logger = LoggerFactory.getLogger(ExampleInstrumentedTest.class);
+public class PlayerRepositoryTest {
+    final Logger logger = LoggerFactory.getLogger(PlayerRepositoryTest.class);
     private PlayerDAO mPlayerDAO;
     private PUBGDatabase mDb;
     private ApiClient apiClient;
+    private PlayersRepository playersRepository;
 
     @Before
-    public void setupApiManager() {
+    public void setup() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(interceptor)
                 .build();
         apiClient = new ApiClient(BuildConfig.API_KEY, httpClient);
-    }
 
-    @Before
-    public void createDb() {
         Context context = InstrumentationRegistry.getTargetContext();
         mDb = Room.inMemoryDatabaseBuilder(context, PUBGDatabase.class).allowMainThreadQueries().build();
         mPlayerDAO = mDb.playerDAO();
+
+        playersRepository = new PlayersRepository(apiClient, mDb);
     }
 
     @After
@@ -64,23 +60,17 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.mc_jh.pubghelper", appContext.getPackageName());
+    public void searchPlayer() throws Exception {
+        String playerName = "Sleeptime_GRT";
+        PlayerModel playerModel = playersRepository.searchPlayer(Region.PC_KOREA_JAPAN, playerName).blockingGet();
+        assertEquals(playerModel.getAttribute().getName(), playerName);
     }
 
     @Test
-    public void loadAndSavePlayer() throws Exception {
+    public void savePlayer() throws Exception {
         String playerName = "Sleeptime_GRT";
-        PlayerFilter playerFilter = new PlayerFilter(Lists.newArrayList(), Lists.newArrayList(playerName));
-        PlayerResponse playerResponse = apiClient.getPlayers(Region.PC_KOREA_JAPAN, playerFilter);
-        List<PlayerEntity> playerEntityList = PlayerMapper.INSTANCE.apiToDBEntity(playerResponse.getPlayers());
-        mPlayerDAO.insertPlayers(playerEntityList.toArray(new PlayerEntity[playerEntityList.size()]));
-        PlayerEntity playerEntity = mPlayerDAO.loadAllPlayers().get(0);
-        assertEquals(playerEntity.getId(), playerEntityList.get(0).getId());
-        assertEquals(playerEntity.getAttributeEntity().getName(), playerName);
+        PlayerModel playerModel = playersRepository.searchPlayer(Region.PC_KOREA_JAPAN, playerName).blockingGet();
+        PlayerModel playerModel2 = playersRepository.savePlayer(playerModel).blockingGet();
+        assertEquals(playerModel, playerModel2);
     }
-
 }

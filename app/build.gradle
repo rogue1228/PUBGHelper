@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion Configs.compile_sdk
@@ -13,6 +14,7 @@ android {
         versionCode Configs.version_code
         versionName Configs.version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -22,6 +24,10 @@ android {
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -42,6 +48,14 @@ dependencies {
     implementation Deps.retrofit_runtime
     implementation Deps.retrofit_gson
     implementation Deps.retrofit_rxjava2
+    implementation Deps.okhttp_logging_interceptor
+
+    kapt Deps.lifecycler_compiler
+    implementation Deps.lifecycler_extensions
+    implementation Deps.lifecycler_java8
+
+    implementation Deps.gson
+    implementation Deps.guava
 
     implementation Deps.anko
     implementation Deps.anko_appcompat_v7
@@ -49,11 +63,20 @@ dependencies {
     implementation Deps.anko_constraint
     implementation Deps.anko_recyclerview
 
+    implementation Deps.room_runtime
+    implementation Deps.room_rxjava2
+    kapt Deps.room_compiler
+
+    implementation Deps.jodatime
+    //for log
+    implementation 'org.slf4j:slf4j-android:1.7.25'
+//    implementation 'com.github.tony19:logback-android:1.1.1-11'
+    implementation 'com.google.code.findbugs:jsr305:2.0.1'
+
     implementation Deps.pubg_api
 
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation Deps.junit
+    androidTestImplementation Deps.room_testing
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
