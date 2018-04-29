@@ -45,6 +45,9 @@ dependencies {
     implementation Deps.constraint_layout
     implementation Deps.support_design
 
+    implementation Deps.rxkotlin2
+    implementation Deps.rx_android
+
     implementation Deps.retrofit_runtime
     implementation Deps.retrofit_gson
     implementation Deps.retrofit_rxjava2

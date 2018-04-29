@@ -62,14 +62,14 @@ public class PlayerRepositoryTest {
     @Test
     public void searchPlayer() throws Exception {
         String playerName = "Sleeptime_GRT";
-        PlayerModel playerModel = playersRepository.searchPlayer(Region.PC_KOREA_JAPAN, playerName).blockingGet();
+        PlayerModel playerModel = playersRepository.searchPlayerByName(Region.PC_KOREA_JAPAN, playerName).blockingGet();
         assertEquals(playerModel.getAttribute().getName(), playerName);
     }
 
     @Test
     public void savePlayer() throws Exception {
         String playerName = "Sleeptime_GRT";
-        PlayerModel playerModel = playersRepository.searchPlayer(Region.PC_KOREA_JAPAN, playerName).blockingGet();
+        PlayerModel playerModel = playersRepository.searchPlayerByName(Region.PC_KOREA_JAPAN, playerName).blockingGet();
         PlayerModel playerModel2 = playersRepository.savePlayer(playerModel).blockingGet();
         assertEquals(playerModel, playerModel2);
     }

@@ -11,7 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 class PlayersRepository(private val pubgApiClient: ApiClient, private val database: PUBGDatabase) {
-    fun searchPlayer(region: Region, playerName: String): Single<PlayerModel> {
+    fun searchPlayerByName(region: Region, playerName: String): Single<PlayerModel> {
         return getPlayers(region, PlayerFilter(emptyList(), listOf(playerName)))
                 .map {
                     PlayerMapper.transform(it).first()

@@ -15,11 +15,12 @@
         <activity
             android:name=".view.main.MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".view.searchplayer.SearchPlayersActivity" />
+        <activity android:name=".view.searchplayer.SearchPlayersActivity"
+            android:label ="@string/title_activity_search_player"/>
 
         <activity-alias
             android:name="launchActivity"
-            android:targetActivity=".view.main.MainActivity">
+            android:targetActivity=".view.searchplayer.SearchPlayersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

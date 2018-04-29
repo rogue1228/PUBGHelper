@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_search_player">캐릭터 검색</string>
+    <string name="form_search_player_by_name">플레이어 이름을 입력해주세요. (대소문자 구별)</string>
+    <string name="search">검색</string>
+    <string name="save">저장</string>
 </resources>
